@@ -1,0 +1,19 @@
+@mixin noBattery {
+	.no-battery {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+
+		svg {
+			width: 2rem;
+			height: 2rem;
+
+			polygon {
+				fill: rgb(6, 6, 6);
+			}
+		}
+	}
+}
+

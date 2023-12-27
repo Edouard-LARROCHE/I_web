@@ -2,16 +2,16 @@ import React from "react"
 
 // import { useSelector } from "react-redux"
 
-// import { HiChevronRight } from "react-icons/hi2"
+import { HiChevronRight } from "react-icons/hi2"
 
-// import Screen from "./screen"
-// import ActionButton from "./actionButton"
+import Screen from "./screen"
+import ActionButton from "./actionButton"
 
 const IPodMini = () => {
 	// const openDevice = useSelector(
 	// 	(state) => state.confirmAnimation.confirmDevice,
 	// )
-	// const menu = ["M", "e", "n", "u"]
+	const menu = ["M", "e", "n", "u"]
 
 	return (
 		// <div className={`ipod-mini ${openDevice ? "small" : ""}`}>
@@ -24,7 +24,7 @@ const IPodMini = () => {
 		// 	<div className="central-button"></div>
 		// </div>
 		<div className="container">
-			{/* <div className="ipod small">
+			<div className="ipod small">
 				<Screen
 					icon={
 						<HiChevronRight
@@ -44,8 +44,7 @@ const IPodMini = () => {
 					</div>
 					<ActionButton />
 				</div>
-			</div> */}
-			NTM
+			</div>
 		</div>
 	)
 }
