@@ -1,23 +1,29 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+
+import { setToken } from "./store/reducer/user"
+
+import getAccessToken from "./services/accessToken"
+import IPodMini from "./components/iPodMini/iPodMini"
 
 function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
-	)
+	const dispatch = useDispatch()
+	const token = useSelector((state) => state?.user?.token)
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const token = await getAccessToken()
+				dispatch(setToken(token))
+			} catch (error) {
+				console.log("Error: ", error)
+			}
+		}
+
+		fetchData()
+	}, [dispatch])
+
+	return <div id="mContainer">{token ? <IPodMini /> : "LOADING"}</div>
 }
 
 export default App
