@@ -1,4 +1,3 @@
-"use client"
 import React, { useState, useRef } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
@@ -18,19 +17,26 @@ const CentralButton = () => {
 
 	const handleMouseDown = () => {
 		timeoutRef.current = setTimeout(() => {
-			setOpenedScreen(true)
-			dispatch(setOpenScreen(!screenOpened))
+			if (openedScreen) {
+				setOpenedScreen(false)
+				dispatch(setOpenScreen(false))
+			} else {
+				setOpenedScreen(true)
+				dispatch(setOpenScreen(!screenOpened))
+			}
 		}, pressDurationThreshold)
 	}
 
 	const handleMouseUp = () => {
 		clearTimeout(timeoutRef.current)
 
-		if (openedScreen) {
-			setTimeout(() => {
+		setTimeout(() => {
+			if (openedScreen) {
+				setOpenedScreen(true)
+			} else {
 				setOpenedScreen(false)
-			}, pressDurationThreshold)
-		}
+			}
+		}, pressDurationThreshold)
 	}
 
 	return (
