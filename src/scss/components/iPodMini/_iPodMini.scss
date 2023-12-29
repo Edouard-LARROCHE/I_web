@@ -99,15 +99,29 @@
 	}
 
 	.btn-menu {
-		position: absolute;
-		right: 10rem;
-		top: 0.5rem;
+		display: flex;
+		justify-content: center;
 		color: #babdc1;
+		transform: translateY(7px);
+		cursor: pointer;
 
 		.char0 {
-			// transform: rotate(0.5turn);
-			transform: translateX(20px);
-			color: aqua;
+			margin: 0 0.1rem 0 0;
+			transform: rotate(-10deg);
+		}
+
+		.char1 {
+			margin: 0 0.1rem 0 0;
+			transform: rotate(-3deg) translateY(-2px);
+		}
+
+		.char2 {
+			margin: 0 0.1rem 0 0;
+			transform: rotate(3deg) translateY(-2px);
+		}
+
+		.char3 {
+			transform: rotate(10deg) translateY(-1.2px);
 		}
 	}
 }
