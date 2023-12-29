@@ -1,15 +1,22 @@
 import React from "react"
 
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
-import { setOpenScreen } from "../../store/reducer/device"
+import { setLocationScreen } from "../../store/reducer/device"
 import CentralButton from "./centralButton"
 
 const ActionButton = () => {
 	const dispatch = useDispatch()
+	const locationScreen = useSelector((state) => state.device.locationScreen)
 
 	const handleReturn = () => {
-		dispatch(setOpenScreen(false))
+		if (
+			locationScreen &&
+			locationScreen !== null &&
+			locationScreen !== "menu"
+		) {
+			dispatch(setLocationScreen(""))
+		}
 	}
 
 	return (

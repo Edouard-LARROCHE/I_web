@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 
 import { useSelector } from "react-redux"
@@ -12,7 +12,7 @@ import { IoMdPlay } from "react-icons/io"
 const Screen = (props) => {
 	const screenOpened = useSelector((state) => state.device.openScreen)
 	const timer = useSelector((state) => state.device?.batteryLevel)
-	const [hoveredItem, setHoveredItem] = useState(null)
+
 	const [selectedCategory, setSelectedCategory] = useState(null)
 
 	const dataMenu = [
@@ -24,9 +24,9 @@ const Screen = (props) => {
 		"About",
 	]
 
-	const handleItemsHover = (index) => {
-		setHoveredItem(index)
-	}
+	useEffect(() => {
+		setSelectedCategory(dataMenu[0])
+	}, [selectedCategory, dataMenu])
 
 	const handleOptionClick = (index) => {
 		setSelectedCategory(dataMenu[index])
@@ -53,13 +53,11 @@ const Screen = (props) => {
 									<div
 										key={i}
 										className={`option ${
-											i === hoveredItem ? "selected" : ""
+											items === selectedCategory
+												? "selected"
+												: ""
 										}`}
 										onClick={() => handleOptionClick(i)}
-										onMouseEnter={() => handleItemsHover(i)}
-										onMouseLeave={() =>
-											handleItemsHover(null)
-										}
 									>
 										{items} {props.icon}
 									</div>

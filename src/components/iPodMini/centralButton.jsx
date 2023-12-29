@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 
-import { setOpenScreen } from "../../store/reducer/device"
+import { setOpenScreen, setLocationScreen } from "../../store/reducer/device"
 
 const CentralButton = () => {
 	const dispatch = useDispatch()
@@ -20,9 +20,11 @@ const CentralButton = () => {
 			if (openedScreen) {
 				setOpenedScreen(false)
 				dispatch(setOpenScreen(false))
+				dispatch(setLocationScreen(""))
 			} else {
 				setOpenedScreen(true)
 				dispatch(setOpenScreen(!screenOpened))
+				dispatch(setLocationScreen("menu"))
 			}
 		}, pressDurationThreshold)
 	}
