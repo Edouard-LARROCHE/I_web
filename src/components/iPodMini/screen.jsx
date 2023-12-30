@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 
 import { useSelector } from "react-redux"
 
 import TimerComponent from "../modules/timer"
-import Genres from "./categories/genres"
+// import Genres from "./categories/genres"
 import NoBattery from "../modules/noBattery"
 
 import { IoMdPlay } from "react-icons/io"
@@ -13,30 +13,19 @@ const Screen = (props) => {
 	const screenOpened = useSelector((state) => state.device.openScreen)
 	const timer = useSelector((state) => state.device?.batteryLevel)
 
-	const [selectedCategory, setSelectedCategory] = useState(null)
-
-	const dataMenu = [
-		"Playlists",
-		"Artists",
-		"Songs",
-		"Genres",
-		"Settings",
-		"About",
-	]
-
 	useEffect(() => {
-		setSelectedCategory(dataMenu[0])
-	}, [selectedCategory, dataMenu])
+		props.updateSelectedCategory(0)
+	}, [props])
 
 	const handleOptionClick = (index) => {
-		setSelectedCategory(dataMenu[index])
+		props.updateSelectedCategory(index)
 	}
 
 	return (
 		<div className="screen">
 			{!screenOpened && timer === 0 ? (
 				<NoBattery screenOpened={screenOpened} timer={timer} />
-			) : selectedCategory !== "Genres" ? (
+			) : props.selectedCategory !== "Genres" ? (
 				<>
 					<div className={screenOpened ? "title-bar" : "noBorder"}>
 						{screenOpened ? (
@@ -49,11 +38,11 @@ const Screen = (props) => {
 					</div>
 					<div className="menu-options">
 						{screenOpened
-							? dataMenu.map((items, i) => (
+							? props.dataMenu.map((items, i) => (
 									<div
 										key={i}
 										className={`option ${
-											items === selectedCategory
+											items === props.selectedCategory
 												? "selected"
 												: ""
 										}`}
@@ -66,7 +55,8 @@ const Screen = (props) => {
 					</div>
 				</>
 			) : (
-				<Genres />
+				// <Genres />
+				<div>ahah</div>
 			)}
 		</div>
 	)
@@ -76,4 +66,7 @@ export default Screen
 
 Screen.propTypes = {
 	icon: PropTypes.object,
+	dataMenu: PropTypes.array,
+	updateSelectedCategory: PropTypes.func,
+	selectedCategory: PropTypes.string,
 }

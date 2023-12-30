@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 // import { useSelector } from "react-redux"
 
@@ -11,7 +11,24 @@ const IPodMini = () => {
 	// const openDevice = useSelector(
 	// 	(state) => state.confirmAnimation.confirmDevice,
 	// )
-	const menu = ["M", "e", "n", "u"]
+
+	const text = ["M", "e", "n", "u"]
+	const dataMenu = [
+		"Playlists",
+		"Artists",
+		"Songs",
+		"Genres",
+		"Settings",
+		"About",
+	]
+	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+
+	const updateSelectedCategory = (delta) => {
+		const currentIndex = dataMenu.indexOf(selectedCategory)
+		const newIndex =
+			(currentIndex + delta + dataMenu.length) % dataMenu.length
+		setSelectedCategory(dataMenu[newIndex])
+	}
 
 	return (
 		// <div className={`ipod-mini ${openDevice ? "small" : ""}`}>
@@ -26,6 +43,9 @@ const IPodMini = () => {
 		<div className="container">
 			<div className="ipod small">
 				<Screen
+					dataMenu={dataMenu}
+					selectedCategory={selectedCategory}
+					updateSelectedCategory={updateSelectedCategory}
 					icon={
 						<HiChevronRight
 							style={{
@@ -36,13 +56,15 @@ const IPodMini = () => {
 				/>
 				<div className="outer-ring">
 					<div className="btn-menu">
-						{menu.map((letter, i) => (
+						{text.map((letter, i) => (
 							<span key={i} className={`char${i}`}>
 								{letter}
 							</span>
 						))}
 					</div>
-					<ActionButton />
+					<ActionButton
+						updateSelectedCategory={updateSelectedCategory}
+					/>
 				</div>
 			</div>
 		</div>
