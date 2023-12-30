@@ -6,7 +6,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { setLocationScreen } from "../../store/reducer/device"
 import CentralButton from "./centralButton"
 
-const ActionButton = ({ updateSelectedCategory }) => {
+const ActionButton = ({
+	updateSelectedCategory,
+	dataMenu,
+	selectedCategory,
+	setRenderComponant,
+}) => {
 	const dispatch = useDispatch()
 	const locationScreen = useSelector((state) => state.device.locationScreen)
 	const screenOpened = useSelector((state) => state.device.openScreen)
@@ -54,7 +59,11 @@ const ActionButton = ({ updateSelectedCategory }) => {
 				onMouseMove={handleMouseMove}
 				onMouseUp={handleMouseUp}
 			>
-				<CentralButton />
+				<CentralButton
+					dataMenu={dataMenu}
+					selectedCategory={selectedCategory}
+					setRenderComponant={setRenderComponant}
+				/>
 			</div>
 		</>
 	)
@@ -64,4 +73,7 @@ export default ActionButton
 
 ActionButton.propTypes = {
 	updateSelectedCategory: PropTypes.func,
+	dataMenu: PropTypes.array,
+	selectedCategory: PropTypes.string,
+	setRenderComponant: PropTypes.func,
 }

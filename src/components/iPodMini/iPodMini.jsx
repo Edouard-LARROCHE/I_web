@@ -16,6 +16,7 @@ const IPodMini = () => {
 		"About",
 	]
 	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+	const [renderComponant, setRenderComponant] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
 
 	const updateSelectedCategory = (delta) => {
@@ -36,6 +37,8 @@ const IPodMini = () => {
 		}
 	}
 
+	// console.log(renderComponant, "renderComponant")
+
 	return (
 		// <div className={`ipod-mini ${openDevice ? "small" : ""}`}>
 		// 	<div className="screen">
@@ -52,6 +55,8 @@ const IPodMini = () => {
 					dataMenu={dataMenu}
 					selectedCategory={selectedCategory}
 					updateSelectedCategory={updateSelectedCategory}
+					renderComponant={renderComponant}
+					setRenderComponant={setRenderComponant}
 					icon={
 						<HiChevronRight
 							style={{
@@ -69,7 +74,10 @@ const IPodMini = () => {
 						))}
 					</div>
 					<ActionButton
+						dataMenu={dataMenu}
+						selectedCategory={selectedCategory}
 						updateSelectedCategory={updateSelectedCategory}
+						setRenderComponant={setRenderComponant}
 					/>
 				</div>
 			</div>
