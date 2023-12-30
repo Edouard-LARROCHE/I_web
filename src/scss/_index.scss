@@ -1,0 +1,8 @@
+@use "./animations/confirmAnimation";
+@use "./components/carousel/carousel";
+@use "./layout/" as *;
+
+@include MainContainer {
+	// @include carousel;
+}
+

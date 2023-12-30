@@ -1,17 +1,40 @@
-import React from "react"
+import React, { useState, useRef } from "react"
 
-// import { useSelector } from "react-redux"
+import { HiChevronRight } from "react-icons/hi2"
 
-// import { HiChevronRight } from "react-icons/hi2"
-
-// import Screen from "./screen"
-// import ActionButton from "./actionButton"
+import Screen from "./screen"
+import ActionButton from "./actionButton"
 
 const IPodMini = () => {
-	// const openDevice = useSelector(
-	// 	(state) => state.confirmAnimation.confirmDevice,
-	// )
-	// const menu = ["M", "e", "n", "u"]
+	const text = ["M", "e", "n", "u"]
+	const dataMenu = [
+		"Playlists",
+		"Artists",
+		"Songs",
+		"Genres",
+		"Settings",
+		"About",
+	]
+	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+	const accumulatedDeltaRef = useRef(0)
+
+	const updateSelectedCategory = (delta) => {
+		const factor = 0.1
+		accumulatedDeltaRef.current += delta * factor
+
+		const scrollThreshold = 1
+
+		if (Math.abs(accumulatedDeltaRef.current) >= scrollThreshold) {
+			const currentIndex = dataMenu.indexOf(selectedCategory)
+			const newIndex =
+				(currentIndex +
+					Math.sign(accumulatedDeltaRef.current) +
+					dataMenu.length) %
+				dataMenu.length
+			setSelectedCategory(dataMenu[newIndex])
+			accumulatedDeltaRef.current = 0
+		}
+	}
 
 	return (
 		// <div className={`ipod-mini ${openDevice ? "small" : ""}`}>
@@ -24,8 +47,11 @@ const IPodMini = () => {
 		// 	<div className="central-button"></div>
 		// </div>
 		<div className="container">
-			{/* <div className="ipod small">
+			<div className="ipod small">
 				<Screen
+					dataMenu={dataMenu}
+					selectedCategory={selectedCategory}
+					updateSelectedCategory={updateSelectedCategory}
 					icon={
 						<HiChevronRight
 							style={{
@@ -36,16 +62,17 @@ const IPodMini = () => {
 				/>
 				<div className="outer-ring">
 					<div className="btn-menu">
-						{menu.map((letter, i) => (
+						{text.map((letter, i) => (
 							<span key={i} className={`char${i}`}>
 								{letter}
 							</span>
 						))}
 					</div>
-					<ActionButton />
+					<ActionButton
+						updateSelectedCategory={updateSelectedCategory}
+					/>
 				</div>
-			</div> */}
-			NTM
+			</div>
 		</div>
 	)
 }
