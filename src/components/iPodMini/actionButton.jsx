@@ -22,7 +22,7 @@ const ActionButton = ({ updateSelectedCategory }) => {
 	const handleMouseMove = (e) => {
 		if (!screenOpened) return
 		if (isMouseDown) {
-			const delta = e.movementX
+			const delta = e.movementX || e.movementY
 			updateSelectedCategory(delta)
 		}
 	}

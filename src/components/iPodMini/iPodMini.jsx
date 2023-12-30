@@ -1,6 +1,4 @@
-import React, { useState } from "react"
-
-// import { useSelector } from "react-redux"
+import React, { useState, useRef } from "react"
 
 import { HiChevronRight } from "react-icons/hi2"
 
@@ -8,10 +6,6 @@ import Screen from "./screen"
 import ActionButton from "./actionButton"
 
 const IPodMini = () => {
-	// const openDevice = useSelector(
-	// 	(state) => state.confirmAnimation.confirmDevice,
-	// )
-
 	const text = ["M", "e", "n", "u"]
 	const dataMenu = [
 		"Playlists",
@@ -22,12 +16,24 @@ const IPodMini = () => {
 		"About",
 	]
 	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+	const accumulatedDeltaRef = useRef(0)
 
 	const updateSelectedCategory = (delta) => {
-		const currentIndex = dataMenu.indexOf(selectedCategory)
-		const newIndex =
-			(currentIndex + delta + dataMenu.length) % dataMenu.length
-		setSelectedCategory(dataMenu[newIndex])
+		const factor = 0.1
+		accumulatedDeltaRef.current += delta * factor
+
+		const scrollThreshold = 1
+
+		if (Math.abs(accumulatedDeltaRef.current) >= scrollThreshold) {
+			const currentIndex = dataMenu.indexOf(selectedCategory)
+			const newIndex =
+				(currentIndex +
+					Math.sign(accumulatedDeltaRef.current) +
+					dataMenu.length) %
+				dataMenu.length
+			setSelectedCategory(dataMenu[newIndex])
+			accumulatedDeltaRef.current = 0
+		}
 	}
 
 	return (
