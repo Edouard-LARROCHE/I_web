@@ -45,7 +45,10 @@ const Screen = (props) => {
 					screenOpened &&
 					props.returnMenuBase &&
 					props.selectedCategory ? (
-						<CategoryComponent category={props.selectedCategory} />
+						<CategoryComponent
+							category={props.selectedCategory}
+							icon={props.icon}
+						/>
 					) : (
 						<div className="menu-options">
 							{screenOpened
