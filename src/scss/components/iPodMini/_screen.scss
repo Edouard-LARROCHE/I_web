@@ -16,6 +16,7 @@
 	font-family: "ChicagoFont", "Arial";
 	font-size: 130%;
 	color: $screen-dark;
+	overflow: hidden;
 
 	@include noBattery;
 }
@@ -118,6 +119,10 @@
 	position: relative;
 	top: 17%;
 	height: 81%;
+
+	&.under-menu {
+		height: auto;
+	}
 }
 
 .loading {

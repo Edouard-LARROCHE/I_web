@@ -4,28 +4,33 @@ import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
 
 import TimerComponent from "../modules/timer"
-// import Genres from "./categories/genres"
 import NoBattery from "../modules/noBattery"
+import CategoryComponent from "./categories/index"
 
 import { IoMdPlay } from "react-icons/io"
 
 const Screen = (props) => {
 	const screenOpened = useSelector((state) => state.device.openScreen)
 	const timer = useSelector((state) => state.device?.batteryLevel)
+	const location = useSelector(
+		(state) => state.device.locationScreen.location,
+	)
 
 	useEffect(() => {
 		props.updateSelectedCategory(0)
 	}, [props])
 
-	const handleOptionClick = (index) => {
-		props.updateSelectedCategory(index)
-	}
+	useEffect(() => {
+		if (location === "menu") {
+			props.setReturnMenuBase(false)
+		}
+	}, [props])
 
 	return (
 		<div className="screen">
 			{!screenOpened && timer === 0 ? (
 				<NoBattery screenOpened={screenOpened} timer={timer} />
-			) : props.selectedCategory !== "Genres" ? (
+			) : (
 				<>
 					<div className={screenOpened ? "title-bar" : "noBorder"}>
 						{screenOpened ? (
@@ -36,27 +41,33 @@ const Screen = (props) => {
 							</>
 						) : null}
 					</div>
-					<div className="menu-options">
-						{screenOpened
-							? props.dataMenu.map((items, i) => (
-									<div
-										key={i}
-										className={`option ${
-											items === props.selectedCategory
-												? "selected"
-												: ""
-										}`}
-										onClick={() => handleOptionClick(i)}
-									>
-										{items} {props.icon}
-									</div>
-								))
-							: null}
-					</div>
+					{props.renderComponant &&
+					screenOpened &&
+					props.returnMenuBase &&
+					props.selectedCategory ? (
+						<CategoryComponent
+							category={props.selectedCategory}
+							icon={props.icon}
+						/>
+					) : (
+						<div className="menu-options">
+							{screenOpened
+								? props.dataMenu.map((items, i) => (
+										<div
+											key={i}
+											className={`option ${
+												items === props.selectedCategory
+													? "selected"
+													: ""
+											}`}
+										>
+											{items} {props.icon}
+										</div>
+									))
+								: null}
+						</div>
+					)}
 				</>
-			) : (
-				// <Genres />
-				<div>ahah</div>
 			)}
 		</div>
 	)
@@ -69,4 +80,8 @@ Screen.propTypes = {
 	dataMenu: PropTypes.array,
 	updateSelectedCategory: PropTypes.func,
 	selectedCategory: PropTypes.string,
+	renderComponant: PropTypes.bool,
+	setRenderComponant: PropTypes.func,
+	returnMenuBase: PropTypes.bool,
+	setReturnMenuBase: PropTypes.func,
 }

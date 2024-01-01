@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
+
 import { useSelector } from "react-redux"
 
 import { FaApple } from "react-icons/fa"
 
 import getGenreSeeds from "../../../services/getGenreSeeds"
 
-const Genres = () => {
-	const token = useSelector((state) => state.userInfo?.token)
+const Genres = (props) => {
+	const token = useSelector((state) => state.user?.token)
 	const [genreData, setGenreData] = useState(null)
 
 	useEffect(() => {
@@ -22,18 +24,28 @@ const Genres = () => {
 	}, [])
 
 	return (
-		<div className={!genreData ? "menu-options" : "loading"}>
-			{!genreData ? (
+		<div
+			className={
+				genreData !== null ? "menu-options under-menu" : "loading"
+			}
+		>
+			{genreData === null ? (
 				<FaApple />
 			) : (
-				Object.keys(genreData).map((key, i) => (
-					<div key={i}>
-						{key}: {genreData[key]}
-					</div>
-				))
+				<div>
+					{genreData.genres.map((item, i) => (
+						<div key={i} className="option">
+							{item} {props.icon}
+						</div>
+					))}
+				</div>
 			)}
 		</div>
 	)
 }
 
 export default Genres
+
+Genres.propTypes = {
+	icon: PropTypes.object,
+}

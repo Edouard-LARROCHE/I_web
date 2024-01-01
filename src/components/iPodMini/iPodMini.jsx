@@ -1,11 +1,22 @@
 import React, { useState, useRef } from "react"
 
+import { useDispatch, useSelector } from "react-redux"
+
+import { updateSelectedCategory } from "../utils/generalUtils"
+import { setLocationScreen } from "../../store/reducer/device"
 import { HiChevronRight } from "react-icons/hi2"
 
 import Screen from "./screen"
-import ActionButton from "./actionButton"
+import ActionButton from "./actions/actionButton"
 
 const IPodMini = () => {
+	const dispatch = useDispatch()
+
+	const location = useSelector(
+		(state) => state.device.locationScreen.location,
+	)
+	const level = useSelector((state) => state.device.locationScreen.level)
+
 	const text = ["M", "e", "n", "u"]
 	const dataMenu = [
 		"Playlists",
@@ -16,24 +27,25 @@ const IPodMini = () => {
 		"About",
 	]
 	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+	const [renderComponant, setRenderComponant] = useState(false)
+	const [returnMenuBase, setReturnMenuBase] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
 
-	const updateSelectedCategory = (delta) => {
-		const factor = 0.1
-		accumulatedDeltaRef.current += delta * factor
+	const updateSelectedCategoryHandler = (delta) => {
+		updateSelectedCategory(
+			delta,
+			accumulatedDeltaRef,
+			dataMenu,
+			selectedCategory,
+			setSelectedCategory,
+		)
+	}
 
-		const scrollThreshold = 1
-
-		if (Math.abs(accumulatedDeltaRef.current) >= scrollThreshold) {
-			const currentIndex = dataMenu.indexOf(selectedCategory)
-			const newIndex =
-				(currentIndex +
-					Math.sign(accumulatedDeltaRef.current) +
-					dataMenu.length) %
-				dataMenu.length
-			setSelectedCategory(dataMenu[newIndex])
-			accumulatedDeltaRef.current = 0
-		}
+	const backMenu = () => {
+		if (location && location !== "menu" && level === 1) {
+			dispatch(setLocationScreen({ location: "menu", level: 0 }))
+			setReturnMenuBase(true)
+		} else setReturnMenuBase(false)
 	}
 
 	return (
@@ -51,7 +63,11 @@ const IPodMini = () => {
 				<Screen
 					dataMenu={dataMenu}
 					selectedCategory={selectedCategory}
-					updateSelectedCategory={updateSelectedCategory}
+					updateSelectedCategory={updateSelectedCategoryHandler}
+					renderComponant={renderComponant}
+					setRenderComponant={setRenderComponant}
+					returnMenuBase={returnMenuBase}
+					setReturnMenuBase={setReturnMenuBase}
 					icon={
 						<HiChevronRight
 							style={{
@@ -61,7 +77,7 @@ const IPodMini = () => {
 					}
 				/>
 				<div className="outer-ring">
-					<div className="btn-menu">
+					<div className="btn-menu" onClick={backMenu}>
 						{text.map((letter, i) => (
 							<span key={i} className={`char${i}`}>
 								{letter}
@@ -69,7 +85,11 @@ const IPodMini = () => {
 						))}
 					</div>
 					<ActionButton
-						updateSelectedCategory={updateSelectedCategory}
+						dataMenu={dataMenu}
+						selectedCategory={selectedCategory}
+						updateSelectedCategory={updateSelectedCategoryHandler}
+						setRenderComponant={setRenderComponant}
+						setReturnMenuBase={setReturnMenuBase}
 					/>
 				</div>
 			</div>

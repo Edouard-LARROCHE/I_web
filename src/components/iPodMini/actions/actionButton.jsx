@@ -1,14 +1,20 @@
 import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
-import { setLocationScreen } from "../../store/reducer/device"
-import CentralButton from "./centralButton"
+// import { setLocationScreen } from "../../../store/reducer/device"
+import CentralButton from "../centralButton"
 
-const ActionButton = ({ updateSelectedCategory }) => {
-	const dispatch = useDispatch()
-	const locationScreen = useSelector((state) => state.device.locationScreen)
+const ActionButton = ({
+	updateSelectedCategory,
+	dataMenu,
+	selectedCategory,
+	setRenderComponant,
+	setReturnMenuBase,
+}) => {
+	// const dispatch = useDispatch()
+	// const locationScreen = useSelector((state) => state.device.locationScreen)
 	const screenOpened = useSelector((state) => state.device.openScreen)
 
 	const [isMouseDown, setIsMouseDown] = useState(false)
@@ -32,20 +38,10 @@ const ActionButton = ({ updateSelectedCategory }) => {
 		setIsMouseDown(false)
 	}
 
-	const handleReturn = () => {
-		if (
-			locationScreen &&
-			locationScreen !== null &&
-			locationScreen !== "menu"
-		) {
-			dispatch(setLocationScreen(""))
-		}
-	}
-
 	return (
 		<>
 			<div className="skip forward"></div>
-			<div className="skip back" onClick={handleReturn}></div>
+			<div className="skip back"></div>
 			<div className="play-pause"></div>
 			<div
 				className="touch-wheel"
@@ -54,7 +50,12 @@ const ActionButton = ({ updateSelectedCategory }) => {
 				onMouseMove={handleMouseMove}
 				onMouseUp={handleMouseUp}
 			>
-				<CentralButton />
+				<CentralButton
+					dataMenu={dataMenu}
+					selectedCategory={selectedCategory}
+					setRenderComponant={setRenderComponant}
+					setReturnMenuBase={setReturnMenuBase}
+				/>
 			</div>
 		</>
 	)
@@ -64,4 +65,8 @@ export default ActionButton
 
 ActionButton.propTypes = {
 	updateSelectedCategory: PropTypes.func,
+	dataMenu: PropTypes.array,
+	selectedCategory: PropTypes.string,
+	setRenderComponant: PropTypes.func,
+	setReturnMenuBase: PropTypes.func,
 }
