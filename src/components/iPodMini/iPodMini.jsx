@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 
+import { updateSelectedCategory } from "../utils/generalUtils"
 import { setLocationScreen } from "../../store/reducer/device"
 import { HiChevronRight } from "react-icons/hi2"
 
@@ -30,22 +31,14 @@ const IPodMini = () => {
 	const [returnMenuBase, setReturnMenuBase] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
 
-	const updateSelectedCategory = (delta) => {
-		const factor = 0.1
-		accumulatedDeltaRef.current += delta * factor
-
-		const scrollThreshold = 1
-
-		if (Math.abs(accumulatedDeltaRef.current) >= scrollThreshold) {
-			const currentIndex = dataMenu.indexOf(selectedCategory)
-			const newIndex =
-				(currentIndex +
-					Math.sign(accumulatedDeltaRef.current) +
-					dataMenu.length) %
-				dataMenu.length
-			setSelectedCategory(dataMenu[newIndex])
-			accumulatedDeltaRef.current = 0
-		}
+	const updateSelectedCategoryHandler = (delta) => {
+		updateSelectedCategory(
+			delta,
+			accumulatedDeltaRef,
+			dataMenu,
+			selectedCategory,
+			setSelectedCategory,
+		)
 	}
 
 	const backMenu = () => {
@@ -70,7 +63,7 @@ const IPodMini = () => {
 				<Screen
 					dataMenu={dataMenu}
 					selectedCategory={selectedCategory}
-					updateSelectedCategory={updateSelectedCategory}
+					updateSelectedCategory={updateSelectedCategoryHandler}
 					renderComponant={renderComponant}
 					setRenderComponant={setRenderComponant}
 					returnMenuBase={returnMenuBase}
@@ -94,7 +87,7 @@ const IPodMini = () => {
 					<ActionButton
 						dataMenu={dataMenu}
 						selectedCategory={selectedCategory}
-						updateSelectedCategory={updateSelectedCategory}
+						updateSelectedCategory={updateSelectedCategoryHandler}
 						setRenderComponant={setRenderComponant}
 						setReturnMenuBase={setReturnMenuBase}
 					/>
