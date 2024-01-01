@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
 	openScreen: false,
 	batteryLevel: 100,
-	locationScreen: "",
+	locationScreen: {
+		location: "",
+		level: 0,
+	},
 }
 
 export const devices = createSlice({
@@ -20,7 +23,8 @@ export const devices = createSlice({
 			state.batteryLevel = action.payload
 		},
 		setLocationScreen: (state, action) => {
-			state.locationScreen = action.payload
+			state.locationScreen.location = action.payload.location
+			state.locationScreen.level = action.payload.level
 		},
 	},
 })

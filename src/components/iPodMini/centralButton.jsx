@@ -26,7 +26,7 @@ const CentralButton = (props) => {
 				setOpenedScreen(true)
 
 				dispatch(setOpenScreen(!screenOpened))
-				dispatch(setLocationScreen("menu"))
+				dispatch(setLocationScreen({ location: "menu", level: 0 }))
 			}
 		}, pressDurationThreshold)
 	}
@@ -46,6 +46,7 @@ const CentralButton = (props) => {
 	const renderMenuSelected = () => {
 		if (openedScreen) {
 			props.setRenderComponant(true)
+			props.setReturnMenuBase(true)
 		} else if (!openedScreen) {
 			props.setRenderComponant(false)
 		}
@@ -61,7 +62,10 @@ const CentralButton = (props) => {
 				onTouchEnd={handleMouseUp}
 			>
 				{screenOpened ? (
-					<RenderActions renderMenuSelected={renderMenuSelected} />
+					<RenderActions
+						renderMenuSelected={renderMenuSelected}
+						selectedCategory={props.selectedCategory}
+					/>
 				) : null}
 			</div>
 		</>
@@ -73,4 +77,5 @@ export default CentralButton
 CentralButton.propTypes = {
 	selectedCategory: PropTypes.string,
 	setRenderComponant: PropTypes.func,
+	setReturnMenuBase: PropTypes.func,
 }

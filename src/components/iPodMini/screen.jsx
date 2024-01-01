@@ -12,9 +12,18 @@ import { IoMdPlay } from "react-icons/io"
 const Screen = (props) => {
 	const screenOpened = useSelector((state) => state.device.openScreen)
 	const timer = useSelector((state) => state.device?.batteryLevel)
+	const location = useSelector(
+		(state) => state.device.locationScreen.location,
+	)
 
 	useEffect(() => {
 		props.updateSelectedCategory(0)
+	}, [props])
+
+	useEffect(() => {
+		if (location === "menu") {
+			props.setReturnMenuBase(false)
+		}
 	}, [props])
 
 	return (
@@ -34,6 +43,7 @@ const Screen = (props) => {
 					</div>
 					{props.renderComponant &&
 					screenOpened &&
+					props.returnMenuBase &&
 					props.selectedCategory ? (
 						<CategoryComponent category={props.selectedCategory} />
 					) : (
@@ -69,4 +79,6 @@ Screen.propTypes = {
 	selectedCategory: PropTypes.string,
 	renderComponant: PropTypes.bool,
 	setRenderComponant: PropTypes.func,
+	returnMenuBase: PropTypes.bool,
+	setReturnMenuBase: PropTypes.func,
 }
