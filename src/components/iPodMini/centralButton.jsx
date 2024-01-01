@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
 import { setOpenScreen, setLocationScreen } from "../../store/reducer/device"
+import RenderActions from "./actions/renderActions"
 
 const CentralButton = (props) => {
 	const dispatch = useDispatch()
@@ -46,12 +47,10 @@ const CentralButton = (props) => {
 	}
 
 	const renderMenuSelected = () => {
-		if (screenOpened) {
-			if (!openedScreen && openingScreenClick) {
-				props.setRenderComponant(true)
-			} else if (!openedScreen) {
-				props.setRenderComponant(false)
-			}
+		if (openedScreen) {
+			props.setRenderComponant(true)
+		} else if (!openedScreen) {
+			props.setRenderComponant(false)
 		}
 	}
 
@@ -59,12 +58,13 @@ const CentralButton = (props) => {
 		<>
 			<div
 				className="center-button"
-				onClick={renderMenuSelected}
 				onMouseDown={handleMouseDown}
 				onMouseUp={handleMouseUp}
 				onTouchStart={handleMouseDown}
 				onTouchEnd={handleMouseUp}
-			></div>
+			>
+				<RenderActions renderMenuSelected={renderMenuSelected} />
+			</div>
 		</>
 	)
 }

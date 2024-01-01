@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react"
 import { HiChevronRight } from "react-icons/hi2"
 
 import Screen from "./screen"
-import ActionButton from "./actionButton"
+import ActionButton from "./actions/actionButton"
 
 const IPodMini = () => {
 	const text = ["M", "e", "n", "u"]
@@ -36,8 +36,6 @@ const IPodMini = () => {
 			accumulatedDeltaRef.current = 0
 		}
 	}
-
-	// console.log(renderComponant, "renderComponant")
 
 	return (
 		// <div className={`ipod-mini ${openDevice ? "small" : ""}`}>

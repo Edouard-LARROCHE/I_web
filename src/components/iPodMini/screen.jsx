@@ -15,10 +15,7 @@ const Screen = (props) => {
 
 	useEffect(() => {
 		props.updateSelectedCategory(0)
-		// props.setRenderComponant(false)
 	}, [props])
-
-	// console.log(props.renderComponant, "renderComponant")
 
 	return (
 		<div className="screen">

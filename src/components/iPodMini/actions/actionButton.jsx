@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 
 import { useSelector, useDispatch } from "react-redux"
 
-import { setLocationScreen } from "../../store/reducer/device"
-import CentralButton from "./centralButton"
+import { setLocationScreen } from "../../../store/reducer/device"
+import CentralButton from "../centralButton"
 
 const ActionButton = ({
 	updateSelectedCategory,
