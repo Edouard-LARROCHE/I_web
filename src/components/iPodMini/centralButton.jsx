@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react"
+import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 
 import { useDispatch, useSelector } from "react-redux"
@@ -12,13 +12,10 @@ const CentralButton = (props) => {
 	const screenOpened = useSelector((state) => state?.device?.openScreen)
 
 	const [openedScreen, setOpenedScreen] = useState(false)
-	const [openingScreenClick, setOpeningScreenClick] = useState(false)
 	const pressDurationThreshold = 2000
 	const timeoutRef = useRef(null)
 
-	const handleMouseDown = useCallback(() => {
-		setOpeningScreenClick(!openedScreen)
-
+	const handleMouseDown = () => {
 		timeoutRef.current = setTimeout(() => {
 			if (openedScreen) {
 				setOpenedScreen(false)
@@ -32,13 +29,13 @@ const CentralButton = (props) => {
 				dispatch(setLocationScreen("menu"))
 			}
 		}, pressDurationThreshold)
-	}, [dispatch, openedScreen, screenOpened, pressDurationThreshold])
+	}
 
 	const handleMouseUp = () => {
 		clearTimeout(timeoutRef.current)
 
 		setTimeout(() => {
-			if (openedScreen && !openingScreenClick) {
+			if (openedScreen) {
 				setOpenedScreen(true)
 			} else {
 				setOpenedScreen(false)
@@ -63,7 +60,9 @@ const CentralButton = (props) => {
 				onTouchStart={handleMouseDown}
 				onTouchEnd={handleMouseUp}
 			>
-				<RenderActions renderMenuSelected={renderMenuSelected} />
+				{screenOpened ? (
+					<RenderActions renderMenuSelected={renderMenuSelected} />
+				) : null}
 			</div>
 		</>
 	)
