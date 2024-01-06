@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 
 import { updateSelectedCategory } from "../utils/generalUtils"
 import { setLocationScreen } from "../../store/reducer/device"
+import { setMenu } from "../../store/reducer/dataMenu"
 import { HiChevronRight } from "react-icons/hi2"
 
 import Screen from "./screen"
@@ -16,9 +17,11 @@ const IPodMini = () => {
 		(state) => state.device.locationScreen.location,
 	)
 	const level = useSelector((state) => state.device.locationScreen.level)
+	const openScreen = useSelector((state) => state.device.openScreen)
+	const dataMenu = useSelector((state) => state.menu.dataMenu)
 
 	const text = ["M", "e", "n", "u"]
-	const dataMenu = [
+	const dataMenuBase = [
 		"Playlists",
 		"Artists",
 		"Songs",
@@ -26,10 +29,16 @@ const IPodMini = () => {
 		"Settings",
 		"About",
 	]
-	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
+	const [selectedCategory, setSelectedCategory] = useState(dataMenuBase[0])
 	const [renderComponant, setRenderComponant] = useState(false)
 	const [returnMenuBase, setReturnMenuBase] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
+
+	useEffect(() => {
+		if (!openScreen || (level === 0 && location === "menu")) {
+			dispatch(setMenu(dataMenuBase))
+		} else dispatch(setMenu([]))
+	}, [location])
 
 	const updateSelectedCategoryHandler = (delta) => {
 		updateSelectedCategory(
@@ -85,7 +94,7 @@ const IPodMini = () => {
 						))}
 					</div>
 					<ActionButton
-						dataMenu={dataMenu}
+						dataMenu={dataMenuBase}
 						selectedCategory={selectedCategory}
 						updateSelectedCategory={updateSelectedCategoryHandler}
 						setRenderComponant={setRenderComponant}
