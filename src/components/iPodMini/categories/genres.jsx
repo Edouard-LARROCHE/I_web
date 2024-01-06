@@ -16,7 +16,7 @@ const Genres = (props) => {
 		(state) => state.device.locationScreen.location,
 	)
 	const level = useSelector((state) => state.device.locationScreen.level)
-	const dataMenu = useSelector((state) => state.menu?.dataMenu?.genres)
+	const dataMenu = useSelector((state) => state.menu?.dataMenu)
 	const [genreData, setGenreData] = useState(null)
 	const [loader, setLoader] = useState(null)
 
@@ -35,7 +35,7 @@ const Genres = (props) => {
 
 	useEffect(() => {
 		if (location === "Genres" && level === 1 && genreData !== null) {
-			dispatch(setMenu(genreData))
+			dispatch(setMenu({ genres: genreData }))
 		} else if (genreData !== null) dispatch(setMenu([]))
 	}, [location, genreData, level])
 

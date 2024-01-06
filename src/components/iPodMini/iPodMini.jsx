@@ -29,7 +29,7 @@ const IPodMini = () => {
 		"Settings",
 		"About",
 	]
-	const [selectedCategory, setSelectedCategory] = useState(dataMenuBase[0])
+	const [selectedCategory, setSelectedCategory] = useState(dataMenu[0])
 	const [renderComponant, setRenderComponant] = useState(false)
 	const [returnMenuBase, setReturnMenuBase] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
