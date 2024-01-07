@@ -16,7 +16,7 @@ const Genres = (props) => {
 		(state) => state.device.locationScreen.location,
 	)
 	const level = useSelector((state) => state.device.locationScreen.level)
-	const dataMenu = useSelector((state) => state.menu?.dataMenu)
+	const dataMenu = useSelector((state) => state.menu.dataMenu)
 	const [genreData, setGenreData] = useState(null)
 	const [loader, setLoader] = useState(null)
 
@@ -34,22 +34,29 @@ const Genres = (props) => {
 	}, [])
 
 	useEffect(() => {
-		if (location === "Genres" && level === 1 && genreData !== null) {
-			dispatch(setMenu({ genres: genreData }))
-		} else if (genreData !== null) dispatch(setMenu([]))
-	}, [location, genreData, level])
+		const updateDataMenu = async () => {
+			if (
+				location === "Genres" &&
+				level === 1 &&
+				genreData !== null &&
+				genreData.genres.length > 0
+			) {
+				dispatch(setMenu({ genres: genreData }))
+			} else if (genreData !== null) {
+				dispatch(setMenu([]))
+			}
+		}
+
+		updateDataMenu()
+	}, [genreData, location, level, dispatch])
 
 	return (
-		<div
-			className={
-				dataMenu !== null ? "menu-options under-menu" : "loading"
-			}
-		>
+		<div className={dataMenu ? "menu-options under-menu" : "loading"}>
 			{dataMenu === null || dataMenu === undefined ? (
 				<FaApple /> || loader
 			) : (
 				<div>
-					{dataMenu &&
+					{dataMenu.length > 0 &&
 						dataMenu.map((item, i) => (
 							<div key={i} className="option">
 								{item} {props.icon}

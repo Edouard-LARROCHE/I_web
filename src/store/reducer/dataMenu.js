@@ -10,7 +10,7 @@ export const menu = createSlice({
 	reducers: {
 		setMenu: (state, action) => {
 			if (action.payload.genres) {
-				state.dataMenu = action.payload.genres.genres || []
+				state.dataMenu = action.payload.genres.genres
 			} else {
 				state.dataMenu = action.payload
 			}
