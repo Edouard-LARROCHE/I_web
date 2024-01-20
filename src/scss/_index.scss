@@ -2,7 +2,6 @@
 @use "./components/carousel/carousel";
 @use "./layout/" as *;
 
-@include MainContainer {
-	// @include carousel;
-}
+@include MainContainer;
+@include Nav;
 

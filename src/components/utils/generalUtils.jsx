@@ -3,7 +3,7 @@ export const updateSelectedCategory = (
 	accumulatedDeltaRef,
 	dataMenu,
 	selectedCategory,
-	setSelectedCategory,
+	setSelectedCategoryCallback,
 ) => {
 	const factor = 0.1
 	accumulatedDeltaRef.current += delta * factor
@@ -17,7 +17,8 @@ export const updateSelectedCategory = (
 				Math.sign(accumulatedDeltaRef.current) +
 				dataMenu.length) %
 			dataMenu.length
-		setSelectedCategory(dataMenu[newIndex])
+
+		setSelectedCategoryCallback(dataMenu[newIndex])
 		accumulatedDeltaRef.current = 0
 	}
 }

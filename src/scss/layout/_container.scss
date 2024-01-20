@@ -9,7 +9,7 @@
 		transition: 0.3s ease-in-out;
 		max-height: 100vh;
 		overflow: hidden;
-		box-sizing: border-box;
+		// box-sizing: border-box;
 	}
 	@content;
 }
