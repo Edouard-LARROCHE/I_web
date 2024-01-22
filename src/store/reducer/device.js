@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
+	deviceSelected: null,
 	openScreen: false,
 	batteryLevel: 100,
 	locationScreen: {
@@ -13,6 +14,9 @@ export const devices = createSlice({
 	name: "device",
 	initialState,
 	reducers: {
+		setDeviceSelected: (state, action) => {
+			state.deviceSelected = action.payload
+		},
 		setOpenScreen: (state, action) => {
 			return {
 				...state,
@@ -29,7 +33,11 @@ export const devices = createSlice({
 	},
 })
 
-export const { setOpenScreen, setBatteryLevel, setLocationScreen } =
-	devices.actions
+export const {
+	setOpenScreen,
+	setBatteryLevel,
+	setLocationScreen,
+	setDeviceSelected,
+} = devices.actions
 
 export default devices.reducer

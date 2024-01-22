@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-const dateTime = () => {
+const DateTime = () => {
 	const [times, setTimes] = useState(new Date())
 
 	let optionsTime = {
@@ -16,18 +16,11 @@ const dateTime = () => {
 	}, [])
 
 	return (
-		<div className="border h-4/5 mx-1 cursor-grab ">
-			<div className="">
-				{/* <Battery /> */}
-				<div className="flex justify-center relative">
-					<div className="text-xm relative top-[-23px]">{`${times.toLocaleTimeString(
-						"fr-FR",
-						optionsTime,
-					)}`}</div>
-				</div>
-			</div>
-		</div>
+		<div className="number-hour">{`${times.toLocaleTimeString(
+			"fr-FR",
+			optionsTime,
+		)}`}</div>
 	)
 }
 
-export default dateTime
+export default DateTime

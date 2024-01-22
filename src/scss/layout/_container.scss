@@ -1,15 +1,12 @@
 @mixin MainContainer {
 	#mContainer {
+		font-weight: 600;
+		transition: 0.3s ease-in-out;
+		overflow: hidden;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
-		// font-family: $mon;
-		font-weight: 600;
-		transition: 0.3s ease-in-out;
-		max-height: 100vh;
-		overflow: hidden;
-		box-sizing: border-box;
+		height: 85vh;
 	}
 	@content;
 }

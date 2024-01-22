@@ -33,11 +33,12 @@ const IPodMini = () => {
 	const [renderComponant, setRenderComponant] = useState(false)
 	const [returnMenuBase, setReturnMenuBase] = useState(false)
 	const accumulatedDeltaRef = useRef(0)
+	const selectedCategoryRef = useRef(dataMenu[0])
 
 	useEffect(() => {
 		if (!openScreen || (level === 0 && location === "menu")) {
 			dispatch(setMenu(dataMenuBase))
-		} else dispatch(setMenu([]))
+		}
 	}, [location])
 
 	const updateSelectedCategoryHandler = (delta) => {
@@ -45,8 +46,11 @@ const IPodMini = () => {
 			delta,
 			accumulatedDeltaRef,
 			dataMenu,
-			selectedCategory,
-			setSelectedCategory,
+			selectedCategoryRef.current,
+			(newSelectedCategory) => {
+				selectedCategoryRef.current = newSelectedCategory
+				setSelectedCategory(newSelectedCategory)
+			},
 		)
 	}
 
@@ -72,11 +76,13 @@ const IPodMini = () => {
 				<Screen
 					dataMenu={dataMenu}
 					selectedCategory={selectedCategory}
+					setSelectedCategory={setSelectedCategory}
 					updateSelectedCategory={updateSelectedCategoryHandler}
 					renderComponant={renderComponant}
 					setRenderComponant={setRenderComponant}
 					returnMenuBase={returnMenuBase}
 					setReturnMenuBase={setReturnMenuBase}
+					location={location}
 					icon={
 						<HiChevronRight
 							style={{

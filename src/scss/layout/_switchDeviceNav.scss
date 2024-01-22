@@ -1,0 +1,21 @@
+@use "../variables" as *;
+
+@mixin Nav {
+	.switch-device-nav {
+		.nav {
+			display: flex;
+			justify-content: space-around;
+			width: 100vw;
+
+			div {
+				p {
+					color: $screen-dark;
+					font-size: large;
+					font-weight: 500;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
+

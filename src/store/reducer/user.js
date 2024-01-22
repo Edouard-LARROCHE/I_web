@@ -21,6 +21,9 @@ export const userData = createSlice({
 				token: action.payload,
 			}
 		},
+		resetUserState: () => {
+			return initialState
+		},
 	},
 })
 

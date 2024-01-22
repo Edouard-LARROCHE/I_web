@@ -47,6 +47,7 @@ const Screen = (props) => {
 					props.selectedCategory ? (
 						<CategoryComponent
 							category={props.selectedCategory}
+							setSelectedCategory={props.setSelectedCategory}
 							icon={props.icon}
 						/>
 					) : (
@@ -80,6 +81,7 @@ Screen.propTypes = {
 	dataMenu: PropTypes.array,
 	updateSelectedCategory: PropTypes.func,
 	selectedCategory: PropTypes.string,
+	setSelectedCategory: PropTypes.func,
 	renderComponant: PropTypes.bool,
 	setRenderComponant: PropTypes.func,
 	returnMenuBase: PropTypes.bool,
