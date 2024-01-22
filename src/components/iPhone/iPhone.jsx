@@ -1,5 +1,10 @@
 import React from "react"
 
+import DateTime from "../modules/dateTime"
+import ActualDate from "../modules/actualDate"
+
+import { IoLockClosed } from "react-icons/io5"
+
 export const IPhone = () => {
 	return (
 		<div className="outside-border">
@@ -17,10 +22,16 @@ export const IPhone = () => {
 				</div>
 
 				<div className="lock">
-					<div className="lock-locked"></div>
+					<IoLockClosed />
 				</div>
 
-				<div className="time">19:53</div>
+				<div className="date">
+					<ActualDate />
+				</div>
+
+				<div className="time">
+					<DateTime />
+				</div>
 
 				<div className="t-r-info">
 					<div className="dots">...</div>
@@ -29,8 +40,6 @@ export const IPhone = () => {
 						<div className="dot"></div>
 					</div>
 				</div>
-
-				<div className="date">Tuesday, 9 August</div>
 
 				<div className="torch-outter">
 					<div className="light"></div>
