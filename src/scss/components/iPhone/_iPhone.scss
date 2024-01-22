@@ -6,12 +6,17 @@
 	background-size: cover;
 	width: 400px;
 	height: 760px;
-	border: 0.6px solid white;
+	border: 0.6px solid $white;
 	border-radius: 35px;
+
+	&.close {
+		background-color: $black;
+		background-image: none;
+	}
 
 	.silencer {
 		position: relative;
-		background-color: white;
+		background-color: $white;
 		border-radius: 5px;
 		width: 2px;
 		height: 35px;
@@ -24,7 +29,7 @@
 		&up,
 		&down {
 			position: relative;
-			background-color: white;
+			background-color: $white;
 			border-radius: 5px;
 			height: 51px;
 			width: 2px;
@@ -39,268 +44,275 @@
 		}
 	}
 
-	.button-on {
+	.button-onOff {
 		position: relative;
-		background-color: white;
+		background-color: $white;
 		border-radius: 5px;
 		height: 80px;
 		width: 2px;
 		right: -400px;
 		opacity: 0.8;
 		top: 65px;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			width: 30px;
+			height: 100%;
+		}
 	}
 
 	.inside-border {
+		cursor: pointer;
 		position: relative;
 		display: flex;
 		justify-content: center;
-		// width: 100%;
 		height: 100%;
 		border: 11px solid black;
 		border-radius: 35px;
 		top: -228px;
-		outline: 1px solid white;
-	}
+		outline: 1px solid $white;
 
-	.camera {
-		display: flex;
-		justify-content: center;
-		position: relative;
-		width: 195px;
-		height: 28px;
-		background-color: black;
-		border-bottom-left-radius: 15px;
-		border-bottom-right-radius: 15px;
-		top: 0;
-
-		.camera-dot {
-			position: relative;
+		.camera {
 			display: flex;
+			justify-content: center;
+			position: relative;
+			width: 195px;
+			height: 28px;
+			background-color: black;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+			top: 0;
+
+			.camera-dot {
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				background-color: rgba(255, 255, 255, 0.2);
+				border-radius: 50%;
+				width: 6px;
+				height: 6px;
+				left: 12px;
+				top: 8px;
+			}
+
+			.camera-dot-2 {
+				position: absolute;
+				background-color: #fff;
+				border-radius: 50%;
+				width: 4px;
+				height: 4px;
+				opacity: 0.3;
+				box-shadow: $box_shadow;
+				filter: blur(1px);
+			}
+
+			.camera-dot-3 {
+				position: absolute;
+				background-color: #000;
+				border-radius: 50%;
+				width: 1px;
+				height: 1px;
+				opacity: 0.7;
+			}
+
+			.camera-speaker {
+				position: absolute;
+				background-color: #fff;
+				width: 75px;
+				height: 2px;
+				border-radius: 20px;
+				top: -3px;
+				opacity: 0.2;
+			}
+		}
+
+		.lock {
+			position: absolute;
+			top: 50px;
+
+			svg {
+				path {
+					fill: $white;
+				}
+			}
+		}
+
+		.time {
+			position: absolute;
+			top: 115px;
+			font-size: 80px;
+			font-weight: 100;
+
+			.number-hour {
+				font-family: Verdana, Geneva, Tahoma, sans-serif;
+				font-weight: 600;
+			}
+		}
+
+		.date {
+			position: absolute;
+			top: 75px;
+			font-size: 23px;
+			font-weight: 100;
+		}
+
+		.t-r-info {
+			display: flex;
+			gap: 5px;
+			position: absolute;
+			right: 17px;
+			top: 8px;
+			font-size: 10px;
+		}
+
+		.battery {
+			position: relative;
+			margin-top: 4px;
+			height: 7px;
+			width: 14px;
+			border: 0.7px solid rgba(255, 255, 255, 0.709);
+			border-radius: 2px;
+			.bar {
+				width: calc(80% - 2px);
+				height: calc(100% - 2px);
+				background-color: #fff;
+				margin: 1px;
+				border-radius: 1px;
+			}
+			.dot {
+				position: absolute;
+				right: -2px;
+				top: 1.5px;
+				width: 1px;
+				height: 3px;
+				background-color: rgba(255, 255, 255, 0.709);
+				border-radius: 2px;
+			}
+		}
+
+		.torch-outter {
+			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			position: absolute;
-			background-color: rgba(255, 255, 255, 0.2);
+			width: 23px;
+			height: 23px;
+			background-color: rgba(255, 255, 255, 0.202);
+			left: 29px;
+			bottom: 30px;
 			border-radius: 50%;
-			width: 6px;
-			height: 6px;
-			left: 12px;
-			top: 8px;
-		}
-
-		.camera-dot-2 {
-			position: absolute;
-			background-color: #fff;
-			border-radius: 50%;
-			width: 4px;
-			height: 4px;
-			opacity: 0.3;
-			box-shadow: $box_shadow;
-			filter: blur(1px);
-		}
-
-		.camera-dot-3 {
-			position: absolute;
-			background-color: #000;
-			border-radius: 50%;
-			width: 1px;
-			height: 1px;
-			opacity: 0.7;
-		}
-
-		.camera-speaker {
-			position: absolute;
-			background-color: #fff;
-			width: 75px;
-			height: 2px;
-			border-radius: 20px;
-			top: -3px;
-			opacity: 0.2;
-		}
-	}
-
-	.lock {
-		position: absolute;
-		top: 50px;
-
-		svg {
-			path {
-				fill: $white;
+			cursor: pointer;
+			transition-duration: 250ms;
+			&:hover {
+				scale: 1.3;
+			}
+			.light {
+				width: 6px;
+				height: 1px;
+				background-color: #fff;
+				border-radius: 3px;
+			}
+			.top {
+				margin-top: 1px;
+				width: 6px;
+				height: 4px;
+				background-color: #fff;
+				border-top-left-radius: 0.5px;
+				border-top-right-radius: 0.5px;
+				border-bottom-left-radius: 50%;
+				border-bottom-right-radius: 50%;
+			}
+			.switch-section {
+				margin-top: -1px;
+				width: 3px;
+				height: 9px;
+				background-color: #fff;
+				border-radius: 1px;
+			}
+			.switch {
+				position: absolute;
+				top: 10px;
+				left: 10.5px;
+				border-radius: 50%;
+				width: 2px;
+				height: 4px;
+				background-color: #000;
+				.dot {
+					position: absolute;
+					bottom: 0.4px;
+					left: 0.4px;
+					width: 1.2px;
+					height: 1.2px;
+					background-color: #fff;
+					border-radius: 50%;
+				}
 			}
 		}
-	}
 
-	.time {
-		position: absolute;
-		top: 115px;
-		font-size: 80px;
-		font-weight: 100;
-
-		.number-hour {
-			font-family: Verdana, Geneva, Tahoma, sans-serif;
-			font-weight: 600;
-		}
-	}
-
-	.date {
-		position: absolute;
-		top: 75px;
-		font-size: 23px;
-		font-weight: 100;
-	}
-
-	.t-r-info {
-		display: flex;
-		gap: 5px;
-		position: absolute;
-		right: 17px;
-		top: 8px;
-		font-size: 10px;
-	}
-
-	.battery {
-		position: relative;
-		margin-top: 4px;
-		height: 7px;
-		width: 14px;
-		border: 0.7px solid rgba(255, 255, 255, 0.709);
-		border-radius: 2px;
-		.bar {
-			width: calc(80% - 2px);
-			height: calc(100% - 2px);
-			background-color: #fff;
-			margin: 1px;
-			border-radius: 1px;
-		}
-		.dot {
+		.camera-outter {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			position: absolute;
-			right: -2px;
-			top: 1.5px;
-			width: 1px;
-			height: 3px;
-			background-color: rgba(255, 255, 255, 0.709);
-			border-radius: 2px;
-		}
-	}
-
-	.torch-outter {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		width: 23px;
-		height: 23px;
-		background-color: rgba(255, 255, 255, 0.202);
-		left: 29px;
-		bottom: 30px;
-		border-radius: 50%;
-		cursor: pointer;
-		transition-duration: 250ms;
-		&:hover {
-			scale: 1.3;
-		}
-		.light {
-			width: 6px;
-			height: 1px;
-			background-color: #fff;
-			border-radius: 3px;
-		}
-		.top {
-			margin-top: 1px;
-			width: 6px;
-			height: 4px;
-			background-color: #fff;
-			border-top-left-radius: 0.5px;
-			border-top-right-radius: 0.5px;
-			border-bottom-left-radius: 50%;
-			border-bottom-right-radius: 50%;
-		}
-		.switch-section {
-			margin-top: -1px;
-			width: 3px;
-			height: 9px;
-			background-color: #fff;
-			border-radius: 1px;
-		}
-		.switch {
-			position: absolute;
-			top: 10px;
-			left: 10.5px;
+			width: 23px;
+			height: 23px;
+			background-color: rgba(255, 255, 255, 0.202);
+			right: 29px;
+			bottom: 30px;
 			border-radius: 50%;
-			width: 2px;
-			height: 4px;
-			background-color: #000;
-			.dot {
-				position: absolute;
-				bottom: 0.4px;
-				left: 0.4px;
-				width: 1.2px;
-				height: 1.2px;
+			cursor: pointer;
+			transition-duration: 250ms;
+			&:hover {
+				scale: 1.3;
+			}
+			.box {
+				width: 12px;
+				height: 8px;
 				background-color: #fff;
+				border-radius: 1px;
+			}
+			.eye {
+				position: absolute;
+				background-color: #fff;
+				width: 5px;
+				height: 2px;
+				top: 6px;
+				border-top-left-radius: 1px;
+				border-top-right-radius: 1px;
+			}
+			.circle {
+				position: absolute;
+				top: 9px;
+				width: 5px;
+				height: 5px;
+				border: 1px solid #000;
 				border-radius: 50%;
 			}
+			.dot {
+				position: absolute;
+				width: 5px;
+				height: 5px;
+				top: 7px;
+				right: 5.2px;
+				background-color: #000;
+				border-radius: 50%;
+				transform: scale(0.2);
+			}
 		}
-	}
 
-	.camera-outter {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		width: 23px;
-		height: 23px;
-		background-color: rgba(255, 255, 255, 0.202);
-		right: 29px;
-		bottom: 30px;
-		border-radius: 50%;
-		cursor: pointer;
-		transition-duration: 250ms;
-		&:hover {
-			scale: 1.3;
-		}
-		.box {
-			width: 12px;
-			height: 8px;
-			background-color: #fff;
-			border-radius: 1px;
-		}
-		.eye {
+		.bottom-line {
 			position: absolute;
-			background-color: #fff;
-			width: 5px;
 			height: 2px;
-			top: 6px;
-			border-top-left-radius: 1px;
-			border-top-right-radius: 1px;
+			width: 120px;
+			background-color: $white;
+			bottom: 6px;
+			border-radius: 2px;
 		}
-		.circle {
-			position: absolute;
-			top: 9px;
-			width: 5px;
-			height: 5px;
-			border: 1px solid #000;
-			border-radius: 50%;
-		}
-		.dot {
-			position: absolute;
-			width: 5px;
-			height: 5px;
-			top: 7px;
-			right: 5.2px;
-			background-color: #000;
-			border-radius: 50%;
-			transform: scale(0.2);
-		}
-	}
-
-	.bottom-line {
-		position: absolute;
-		height: 2px;
-		width: 80px;
-		background-color: #fff;
-		bottom: 6px;
-		border-radius: 2px;
-		opacity: 0.8;
 	}
 }
 
